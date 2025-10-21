@@ -1,2 +1,4 @@
-Nome           , Status, Aulas, Dia do Pagamento, Nivel
-Rafael Nakayama, Ativo ,    23, Dia 15          , Intermediario
+Nome,Status,Aulas,Dia do Pagamento,Nivel
+Rafael,Ativo,234,13,Fluente
+Pele,Deligado,22,7,intermediario
+vagner,Ativo,12,2,basico
