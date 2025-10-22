@@ -31,3 +31,11 @@ def cadastrar_aluno(nome_param, status_param, aulas_param, pagamento_param, nive
                            'Aulas': f'{aulas_param}', 
                            'Dia do Pagamento': f'{pagamento_param}', 
                            'Nivel': f'{nivel_param}'})
+        
+
+def visualizar_alunos():
+    # Abre e faz a leitura do .csv
+    with open(caminho_csv, newline='') as arquivocsv:
+        leitor_csv = csv.DictReader(arquivocsv, delimiter=' ', quotechar='|')
+        for linha in leitor_csv:
+            print(', '.join(linha))

@@ -26,34 +26,28 @@ def main_menu():
 
             if option == 1:
 
-                nome_do_aluno = str(input("Informe o nome do aluno: "))
+                nome_aluno = str(input("Informe o nome do aluno: "))
 
-                status_do_aluno = str(input("Este aluno está tendo aulas? (S/N): ")).upper()
-                if status_do_aluno == "S":
-                    status_do_aluno = "Ativo"
-                elif status_do_aluno == "N":
-                    status_do_aluno = "Deligado"
+                status_aluno = str(input("Este aluno está tendo aulas? (S/N): ")).upper()
+                if status_aluno == "S":
+                    status_aluno = "Ativo"
+                elif status_aluno == "N":
+                    status_aluno = "Deligado"
                 else:
-                    status_do_aluno = "UNKNOWN"
+                    status_aluno = "UNKNOWN"
 
-                aulas_assistidas = int(input("Informe quantas aulas o aluno assistiu: "))
+                aulas_aluno = int(input("Informe quantas aulas o aluno assistiu: "))
+                pagamento_aluno = str(input("Informe a data do pagamento: "))
+                nivel_aluno = str(input("Informe o nível do aluno: "))
 
-                data_do_pagamento = str(input("Informe a data do pagamento: "))
-
-                nivel_do_aluno = str(input("Informe o nível do aluno: "))
-
-                novo_Aluno = sf.cadastrar_aluno(nome_do_aluno, 
-                                                status_do_aluno, 
-                                                aulas_assistidas,
-                                                data_do_pagamento,
-                                                nivel_do_aluno,)
+                novo_Aluno = sf.cadastrar_aluno(nome_aluno, 
+                                                status_aluno, 
+                                                aulas_aluno,
+                                                pagamento_aluno,
+                                                nivel_aluno,)
 
             elif option == 2:
-                # Abre e faz a leitura do .csv
-                with open(caminho_csv, newline='') as arquivocsv:
-                    leitor_csv = csv.DictReader(arquivocsv, delimiter=' ', quotechar='|')
-                    for linha in leitor_csv:
-                        print(', '.join(linha))
+                sf.visualizar_alunos()
 
             elif option == 3:
                 break
