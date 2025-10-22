@@ -10,6 +10,9 @@ def main_menu():
 
     hoje = datetime.datetime.now()
 
+    # Caminho para evitar erros em outros diretorios
+    caminho_csv = os.path.join(os.path.dirname(__file__), "data", "students.csv")
+
     print("\n__ MENU PRINCIPAL __\n")
     print("1) Cadastrar alunos")
     print("2) Visualizar alunos")
@@ -38,9 +41,6 @@ def main_menu():
                 data_do_pagamento = str(input("Informe a data do pagamento: "))
 
                 nivel_do_aluno = str(input("Informe o nível do aluno: "))
-
-                # Caminho para evitar erros em outros diretorios
-                caminho_csv = os.path.join(os.path.dirname(__file__), "data", "students.csv")
 
                 # Variavel Booleana que retorna True o csv ja foi criado e False se ainda nao
                 arquivo_existe = os.path.exists(caminho_csv)
