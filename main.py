@@ -1,6 +1,4 @@
 import students_functions as sf
-import csv
-import os
 import datetime
 
 def main_menu():
@@ -10,13 +8,11 @@ def main_menu():
 
     hoje = datetime.datetime.now()
 
-    # Caminho para evitar erros em outros diretorios
-    caminho_csv = os.path.join(os.path.dirname(__file__), "data", "students.csv")
-
     print("\n__ MENU PRINCIPAL __\n")
     print("1) Cadastrar alunos")
     print("2) Visualizar alunos")
-    print("3) Sair")
+    print("3) Remover aluno'")
+    print("4) Sair")
 
     print(f"\n" + hoje.strftime("%x"))
 
@@ -50,6 +46,10 @@ def main_menu():
                 sf.visualizar_alunos()
 
             elif option == 3:
+                nome_aluno = str(input("Informe o nome do aluno: "))
+                sf.remover_aluno(nome_aluno)
+
+            elif option == 4:
                 break
 
             else:

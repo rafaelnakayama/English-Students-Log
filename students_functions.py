@@ -4,6 +4,7 @@ Destinado as funcoes dos alunos
 
 import csv
 import os
+import pandas as pd
 
 # Caminho para evitar erros em outros diretorios
 caminho_csv = os.path.join(os.path.dirname(__file__), "data", "students.csv")
@@ -39,3 +40,12 @@ def visualizar_alunos():
         leitor_csv = csv.DictReader(arquivocsv, delimiter=' ', quotechar='|')
         for linha in leitor_csv:
             print(', '.join(linha))
+
+
+def remover_aluno(aluno):
+    data_frame = pd.read_csv(caminho_csv)
+
+    data_frame_remover_por_valor = data_frame[data_frame['Nome'] != f'{aluno}']
+    data_frame_remover_por_valor.to_csv("data/students.csv", index=False)
+
+    print(f"\nSUCESSO! o aluno {aluno} foi removido com sucesso.")
