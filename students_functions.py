@@ -56,8 +56,10 @@ def remover_aluno(aluno):
 def editar_aluno(nome_chave, key, new_value):
     # dataframe
     df = pd.read_csv(caminho_csv)
-
-    # df.loc[df['Nome'] == nome_chave]
+    
+    # Colocando strip() e lower() para evitar erros de espacos inuteis e erros de case sensitive respectivamente
+    df['Nome'] = df['Nome'].str.strip().str.lower()
+    nome_chave = nome_chave.strip().lower()
 
     df.loc[df['Nome'] == nome_chave, key] = new_value
     df.to_csv("data/students.csv", index=False)
