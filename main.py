@@ -9,8 +9,9 @@ def main_menu():
     print("\n__ MENU PRINCIPAL __\n")
     print("1) Cadastrar alunos")
     print("2) Visualizar alunos")
-    print("3) Remover aluno'")
-    print("4) Sair")
+    print("3) Editar aluno")
+    print("4) Remover aluno")
+    print("5) Sair")
 
     print(f"\n" + hoje.strftime("%x"))
 
@@ -44,10 +45,20 @@ def main_menu():
                 sf.visualizar_alunos()
 
             elif option == 3:
+                print("\nInformações a serem alteradas:")
+
+                print("1 - Nome")
+                print("2 - Status")
+                print("3 - Quantidade de aulas")
+                print("4 - Dia do pagamento")
+                print("5 - Nivel do aluno")
+
+            elif option == 4:
                 nome_aluno = str(input("Informe o nome do aluno: "))
                 sf.remover_aluno(nome_aluno)
 
-            elif option == 4:
+            elif option == 5:
+                print("\nSaindo do programa...")
                 break
 
             else:

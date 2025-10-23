@@ -43,9 +43,17 @@ def visualizar_alunos():
 
 
 def remover_aluno(aluno):
-    data_frame = pd.read_csv(caminho_csv)
 
-    data_frame_remover_por_valor = data_frame[data_frame['Nome'] != f'{aluno}']
-    data_frame_remover_por_valor.to_csv("data/students.csv", index=False)
+    # dataframe
+    df = pd.read_csv(caminho_csv)
+
+    df_remover_por_valor = df[df['Nome'] != f'{aluno}']
+    df_remover_por_valor.to_csv("data/students.csv", index=False)
 
     print(f"\nSUCESSO! o aluno {aluno} foi removido com sucesso.")
+
+
+def editar_aluno(aluno):
+    # dataframe
+    df = pd.read_csv(caminho_csv)
+    
