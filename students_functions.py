@@ -52,6 +52,19 @@ def remover_aluno(aluno):
 
     print(f"\nSUCESSO! o aluno {aluno} foi removido com sucesso.")
 
+def aluno_existe(nome_teste):
+
+    # dataframe
+    df = pd.read_csv(caminho_csv)
+
+    df['Nome'] = df['Nome'].str.strip().str.lower()
+    nome_teste = nome_teste.strip().lower()
+
+    # este len serve para verificar se existe ao menos uma linha com o nome do aluno informado
+    # se houver, este valor sera maior ou igual a 1, se nao, sera igual a zero
+    # Com o return podemos retornar um valor booleano True se a condicional (>= 1) for verdadeira, e False caso contrario
+    return len(df.loc[df['Nome'] == nome_teste]) >= 1
+
 
 def editar_aluno(nome_chave, key, new_value):
     # dataframe

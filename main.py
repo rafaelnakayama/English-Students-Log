@@ -47,6 +47,11 @@ def main_menu():
         elif option == 3:
 
             alterar_por_nome = str(input("Informe o nome do aluno: "))
+            sf.aluno_existe(alterar_por_nome)
+
+            while (sf.aluno_existe(alterar_por_nome) == False):
+                print("\033[1;31mEste aluno não está no banco de dados.\033[0m")
+                alterar_por_nome = str(input("Informe o nome do aluno: "))
 
             chave = None
             valor_atualizado = None
