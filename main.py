@@ -80,6 +80,12 @@ def main_menu():
 
         elif option == 4:
             nome_aluno = str(input("Informe o nome do aluno: "))
+            sf.aluno_existe(nome_aluno)
+
+            while (sf.aluno_existe(nome_aluno) == False):
+                print("\033[1;31mEste aluno não está no banco de dados.\033[0m")
+                nome_aluno = str(input("Informe o nome do aluno: "))
+
             sf.remover_aluno(nome_aluno)
 
         elif option == 5:
