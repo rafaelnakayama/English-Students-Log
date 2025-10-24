@@ -45,16 +45,13 @@ def main_menu():
             sf.visualizar_alunos()
 
         elif option == 3:
+
             alterar_por_nome = str(input("Informe o nome do aluno: "))
+
             chave = None
             valor_atualizado = None
 
-            print("\nSelecione o que deseja alterar: \n")
-            print("1) - Nome")
-            print("2) - Status")
-            print("3) - Quantidade de aulas")
-            print("4) - Dia do pagamento")
-            print("5) - Nivel do aluno")
+            ui.menu_option_3()
 
             selecao = int(input("Selecione um valor: "))
 
