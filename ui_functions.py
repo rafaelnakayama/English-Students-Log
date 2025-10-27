@@ -55,7 +55,7 @@ def menu_interface():
 
 def menu_option_3():
 
-    print(f"\n{CORES['ciano_b']}Selecione uma opção:{CORES['reset']}\n")
+    print(f"\n{CORES['ciano_b']}MENU EDITAR{CORES['reset']}\n")
     print(f"{CORES['amarelo']}1) Alterar Nome{CORES['reset']}")
     print(f"{CORES['amarelo']}2) Alterar Status{CORES['reset']}")
     print(f"{CORES['amarelo']}3) Alterar Quantidade de Aulas{CORES['reset']}")
@@ -97,25 +97,50 @@ def inputs_cadastro():
     return nome_aluno, status_aluno, aulas_aluno, pagamento_aluno, nivel_aluno
 
 def inputs_editar():
+    Check = False
     chave = None
     valor_atualizado = None
 
-    selecao = int(input("\n\033[35mSelecione um valor: \033[0m"))
+    while (Check == False):
+        try:
+            selecao = int(input("\n\033[35mSelecione um valor: \033[0m"))
+
+            if selecao >= 1 and selecao <= 5:
+                Check = True
+            else:
+                print("\033[1;31mUm valor entre 1 e 5 deve ser inserido.\033[1;31m")
+                Check = False
+
+        except ValueError:
+            print("\033[1;31mO caractére inserido não é inteiro.\033[1;31m")
+            Check = False
+            continue
+        except:
+            print("\033[1;31mOutra coisa deu errada.\033[1;31m")
+            Check = False
+            continue
 
     if selecao == 1:
         chave = 'Nome'
-        valor_atualizado = str(input("Insira o novo Nome: "))
+        valor_atualizado = str(input(f"{CORES['verde']}Inserir novo nome: {CORES['reset']}"))
+
     elif selecao == 2:
         chave = 'Status'
-        valor_atualizado = str(input("Insira o novo Status: "))
+        valor_atualizado = str(input(f"{CORES['verde']}Status: {CORES['reset']}"))
+
     elif selecao == 3:
         chave = 'Aulas'
-        valor_atualizado = int(input("Informe a quantidade de Aulas: "))
+        valor_atualizado = int(input(f"{CORES['verde']}Aulas assistidas: {CORES['reset']}"))
+        while(valor_atualizado < 0):
+            print(f"{CORES['vermelho']}Este valor não pode ser Negativo.{CORES['reset']}")
+            valor_atualizado = int(input(f"{CORES['verde']}Aulas assistidas: {CORES['reset']}"))
+
     elif selecao == 4:
         chave = 'Dia do Pagamento'
-        valor_atualizado = str(input("Insira o novo dia de Pagamento: "))
+        valor_atualizado = str(input(f"{CORES['verde']}Novo dia de pagamento: {CORES['reset']}"))
+
     elif selecao == 5:
         chave = 'Nivel'
-        valor_atualizado = str(input("Insira o novo Nivel: "))
+        valor_atualizado = str(input(f"{CORES['verde']}Nível: {CORES['reset']}"))
 
     return chave, valor_atualizado

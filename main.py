@@ -33,12 +33,12 @@ def main_menu():
 
         elif option == 3:
             # Nome
-            alterar_por_nome = str(input("Informe o nome do aluno: "))
+            alterar_por_nome = str(input("\033[32mInforme o nome deste aluno: \033[0m"))
             sf.aluno_existe(alterar_por_nome)
 
             while (sf.aluno_existe(alterar_por_nome) == False):
                 print("\033[1;31mEste aluno não está no banco de dados.\033[0m")
-                alterar_por_nome = str(input("Informe o nome do aluno: "))
+                alterar_por_nome = str(input("\033[32mInforme o nome do aluno: \033[0m"))
             
             # Chama o menu de Editar Aluno
             ui.menu_option_3()
