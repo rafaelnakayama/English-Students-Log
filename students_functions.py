@@ -36,17 +36,18 @@ def cadastrar_aluno(nome_param, status_param, aulas_param, pagamento_param, nive
 def visualizar_alunos():
     # Abre e faz a leitura do .csv
     with open(caminho_csv, newline='') as arquivocsv:
-        contador = 0
-        leitor_csv = csv.DictReader(arquivocsv)
-        headers = ['Nome', 'Status', 'Aulas Assistidas', 'Dia do Pagamento', 'Nivel']
-        for linha in leitor_csv:
-            contador += 1
-            table = [[linha['Nome'], linha['Status'], linha['Aulas'], linha['Dia do Pagamento'], linha['Nivel']]]
-            if contador == 1:
-                print(tabulate(table, headers, tablefmt="simple"))
-            else:
-                print(tabulate(table, tablefmt="simple"))
 
+        leitor_csv = csv.DictReader(arquivocsv)
+
+        headers = ['Nome', 'Status', 'Aulas Assistidas', 'Dia do Pagamento', 'Nível']
+        table = [] # Lista Vazia
+
+        # Insere cada campo da linha especifica dentro da tabela
+        for linha in leitor_csv:
+            table.append([linha['Nome'], linha['Status'], linha['Aulas'], linha['Dia do Pagamento'], linha['Nivel']]) 
+
+        print(tabulate(table, headers=headers, tablefmt="fancy_grid")) # Usa o cabecalho headers que definimos anteriormente
+        # Dispensa o uso de loop, printa cada linha uma vez assim como o cabecalho
 
 def remover_aluno(aluno):
     # dataframe

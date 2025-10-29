@@ -30,7 +30,6 @@ def main_menu():
             print("\n")
             ui.menu_interface()
 
-
         elif option == 2:
             sf.visualizar_alunos()
             ui.menu_interface()
