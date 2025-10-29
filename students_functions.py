@@ -5,6 +5,7 @@ This file contains the main features of the program, such as the options availab
 import csv
 import os
 import pandas as pd
+from tabulate import tabulate
 
 # Caminho para evitar erros em outros diretorios
 caminho_csv = os.path.join(os.path.dirname(__file__), "data", "students.csv")
@@ -35,12 +36,19 @@ def cadastrar_aluno(nome_param, status_param, aulas_param, pagamento_param, nive
 def visualizar_alunos():
     # Abre e faz a leitura do .csv
     with open(caminho_csv, newline='') as arquivocsv:
-        leitor_csv = csv.DictReader(arquivocsv, delimiter=' ', quotechar='|')
+        contador = 0
+        leitor_csv = csv.DictReader(arquivocsv)
+        headers = ['Nome', 'Status', 'Aulas Assistidas', 'Dia do Pagamento', 'Nivel']
         for linha in leitor_csv:
-            print(', '.join(linha))
+            contador += 1
+            table = [[linha['Nome'], linha['Status'], linha['Aulas'], linha['Dia do Pagamento'], linha['Nivel']]]
+            if contador == 1:
+                print(tabulate(table, headers, tablefmt="simple"))
+            else:
+                print(tabulate(table, tablefmt="simple"))
+
 
 def remover_aluno(aluno):
-
     # dataframe
     df = pd.read_csv(caminho_csv)
 
