@@ -58,7 +58,7 @@ def main_menu():
             ui.menu_interface()
 
         elif option == 4:
-            nome_aluno = str(input("\033[32mInforme o nome do aluno: \033[1;31m"))
+            nome_aluno = str(input("\033[32mInforme o nome do aluno: \033[1;31m")).lower()
             sf.aluno_existe(nome_aluno)
 
             while (sf.aluno_existe(nome_aluno) == False):

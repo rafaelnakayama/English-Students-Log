@@ -90,12 +90,12 @@ def verificar_csv():
     if not os.path.exists(caminho_csv):
         with open(caminho_csv, mode='w', newline='', encoding='utf-8') as arquivo:
             escritor = csv.writer(arquivo)
-            escritor.writerow(header)
+            escritor.writerow(header) # Insere o header
         print("O arquivo foi criado do zero com cabecalho padrao.")
 
-    # Se nao existe mas estiver vazio, adicione o cabecalho padrao
+    # Se nao existe mas estiver vazio (tamanho de 0 bytes), adicione o cabecalho padrao
     elif os.path.getsize(caminho_csv) == 0:
         with open(caminho_csv, mode='w', newline='', encoding='utf-8') as arquivo:
             escritor = csv.writer(arquivo)
-            escritor.writerow(header)
+            escritor.writerow(header) # Insere o header
         print("O arquivo estava vazio, o cabecalho foi criado.")

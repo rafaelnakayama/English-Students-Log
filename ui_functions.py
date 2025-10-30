@@ -69,7 +69,7 @@ def inputs_cadastro():
     id_aluno = uuid.uuid4()
 
     # Nome
-    nome_aluno = str(input(f"{CORES['verde']}Informe o nome do aluno(a): {CORES['reset']}"))
+    nome_aluno = str(input(f"{CORES['verde']}Informe o nome do aluno(a): {CORES['reset']}")).lower()
     sf.aluno_existe(nome_aluno)
 
     while(sf.aluno_existe == True):
