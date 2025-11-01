@@ -2,6 +2,12 @@
 # pois, ele manda ignorar (dai o nome gitignore) pacotes e outras coisas pesadas que sao locais
 # o .gitignore garante que nosso projeto suba limpo para o github.
 
+
+# Arquivos e pastas sensiveis
+credentials.json
+token.json
+*.env
+
 # Ignorar ambiente virtual
 venv/
 
