@@ -11,7 +11,6 @@ from google.oauth2.credentials import Credentials # Gerencia o token de Acesso
 from google_auth_oauthlib.flow import InstalledAppFlow # controla o fluxo do OAuth (autenticacao via navegador)
 from googleapiclient.discovery import build
 
-
 # Define o Escopo (O que o programa pode fazer no drive) da API, neste caso apenas leitura
 SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
 
@@ -57,6 +56,10 @@ def criar_csvs(service):
     df = pd.DataFrame(items)
     df.to_csv("data/test.csv", index=False)
 
+    items_aulas = []
+    items_textos = []
+    items_atividades = []
+
     if not items:
         print("Nenhuma aula encontrada.")
     else:
@@ -67,7 +70,7 @@ def criar_csvs(service):
 
             if nome_loop.endswith("(Aulas)"):
                 results_aulas = service.files().list(
-                    pageSize=200, fields="files(id,name)", 
+                    fields="files(id,name)", 
                     q= f"'{id_loop}' in parents and trashed = false"
                 ).execute()
 
@@ -75,7 +78,7 @@ def criar_csvs(service):
 
             elif nome_loop.endswith("(Textos)"):
                 results_textos = service.files().list(
-                    pageSize=200, fields="files(id,name)", 
+                    fields="files(id,name)", 
                     q= f"'{id_loop}' in parents and trashed = false"
                 ).execute()
 
@@ -83,7 +86,7 @@ def criar_csvs(service):
 
             elif nome_loop.endswith("(Atividades)"):
                 results_atividades = service.files().list(
-                    pageSize=200, fields="files(id,name)", 
+                    fields="files(id,name)", 
                     q= f"'{id_loop}' in parents and trashed = false"
                 ).execute()
 
