@@ -90,9 +90,7 @@ def main_menu():
                     continue
 
                 if opcao == 1:
-                    print("\033[38;5;208m(1) Aulas, (2) Textos ou (3) Exercicios\033[0m")
                     tipo = cf.validar_tipo()
-
                     cf.visualizar_material(tipo)
 
                 elif opcao == 3:
@@ -107,7 +105,12 @@ def main_menu():
                 else:
                     print(f"\033[1;31mA Opção '{opcao}' não exite.\033[1;35m")
 
-                ui.menu_interface()           
+                if opcao == 1 or opcao == 2:
+                    ui.menu_materiais()
+                elif opcao == 3:
+                    ui.menu_interface()
+                else:
+                    continue
 
         elif option == 6:
             print("\n\033[1;35mSaindo do programa...\033[1;35m")

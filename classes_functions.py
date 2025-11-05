@@ -34,6 +34,7 @@ def inputs_cadastro_material():
     id_material = (str(uuid.uuid4())[:8])
 
 def validar_tipo():
+    print("\033[38;5;208m(1) Aulas, (2) Textos ou (3) Exercicios\033[0m")
     Validar_2 = False
     while (Validar_2 == False):
         try:
@@ -69,12 +70,12 @@ def visualizar_material(type):
 
         leitor_csv = csv.DictReader(arquivocsv)
 
-        headers = ['ID','Nome', 'Nível']
+        headers = ['id','name']
         table = [] # Lista Vazia
 
         # Insere cada campo da linha especifica dentro da tabela
         for linha in leitor_csv:
-            table.append([linha['ID'], linha['Nome'], linha['Nivel']])
+            table.append([linha['id'], linha['name']])
 
         print(tabulate(table, headers=headers, tablefmt="fancy_grid")) # Usa o cabecalho headers que definimos anteriormente
         # Dispensa o uso de loop, printa cada linha uma vez assim como o cabecalho
