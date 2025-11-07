@@ -28,11 +28,6 @@ def verificar_csvs_materiais():
                 escritor.writerow(["ID", "Nome", "Nível"])
             print(f"[+] Criado arquivo: {caminho}")
 
-def inputs_cadastro_material():
-
-    # Cria id com uuid e da slice na string, deixando o mesmo com apenas 8 caracteres
-    id_material = (str(uuid.uuid4())[:8])
-
 def validar_tipo():
     print("\033[38;5;208m(1) Aulas, (2) Textos ou (3) Exercicios\033[0m")
     Validar_2 = False

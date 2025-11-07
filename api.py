@@ -99,12 +99,15 @@ def criar_csvs(service):
                 pass
 
     aulas_df = pd.DataFrame(todas_aulas)
+    aulas_df = aulas_df.sort_values(by="name", ascending=True)
     aulas_df.to_csv("data/aulas.csv", index=False)
 
     textos_df = pd.DataFrame(todos_textos)
+    textos_df = textos_df.sort_values(by="name", ascending=True)
     textos_df.to_csv("data/textos.csv", index=False)
 
     atividades_df = pd.DataFrame(todas_atividades)
+    atividades_df = atividades_df.sort_values(by="name", ascending=True)
     atividades_df.to_csv("data/exercicios.csv", index=False)
 
 criar_csvs(service)
