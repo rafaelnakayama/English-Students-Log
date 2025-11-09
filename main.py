@@ -66,7 +66,7 @@ def main_menu():
                 print("\033[1;31mEste aluno não está no banco de dados.\033[1;31m")
                 nome_aluno = str(input("\033[32mInforme o nome do aluno: \033[1;31m"))
 
-            id_aluno = str(input("\033[32mInforme o ID do aluno: \033[1;31m"))
+            id_aluno = sf.pegar_id_por_nome(nome_aluno)
 
             sf.remover_aluno(nome_aluno, id_aluno)
 

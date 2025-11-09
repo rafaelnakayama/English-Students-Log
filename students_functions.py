@@ -111,6 +111,21 @@ def remover_aluno(aluno, id_aluno):
 
     print(f"\nSUCESSO! o aluno {aluno} foi removido com sucesso.")
 
+def pegar_id_por_nome(nome):
+
+    df = pd.read_csv(caminho_csv)
+
+    df['Nome'] = df['Nome'].str.strip().str.lower()
+
+    # Filtra o aluno correspondente
+    aluno_encontrado = df[df['Nome'] == nome]
+
+    if not aluno_encontrado.empty:
+        id_aluno = aluno_encontrado['ID'].iloc[0]
+        return id_aluno
+    else:
+        return None
+
 def aluno_existe(nome_teste):
     # dataframe
     df = pd.read_csv(caminho_csv)
