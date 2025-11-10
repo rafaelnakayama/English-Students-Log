@@ -17,15 +17,13 @@ ARQUIVOS = {
     'textos': os.path.join(base_dir, PASTA_DATA, 'textos.csv')
 }
 
-# Criação automática dos CSVs se não existirem SVSVSVSV
-def verificar_csvs_materiais():
-    os.makedirs(PASTA_DATA, exist_ok=True)
-    for nome, caminho in ARQUIVOS.items():
-        if not os.path.exists(caminho):
-            with open(caminho, "w", newline="", encoding="utf-8") as f:
-                escritor = csv.writer(f)
-                escritor.writerow(["ID", "Nome", "Nível"])
-            print(f"[+] Criado arquivo: {caminho}")
+def adicionar_material(id_param):
+    # Os 3 caminhos do csv de cada aluno
+    caminho_aulas_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
+    caminho_textos_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
+    caminho_exercicios_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
+
+    print("a")
 
 def validar_tipo():
     print("\033[38;5;208m(1) Aulas, (2) Textos ou (3) Exercicios\033[0m")

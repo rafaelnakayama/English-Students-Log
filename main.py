@@ -120,7 +120,9 @@ def main_menu():
                         nome_aluno_m = str(input("\033[32mInforme o nome do aluno: \033[1;31m"))
 
                     id_aluno_m = sf.pegar_id_por_nome(nome_aluno_m)
-                    tipo = cf.validar_tipo()
+                    tipo_m = cf.validar_tipo()
+                    
+                    
 
                 # opcao == 4 (remove) yet to be made
 

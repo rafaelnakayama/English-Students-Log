@@ -46,9 +46,6 @@ def cadastrar_aluno(id_param,nome_param, status_param, aulas_param, pagamento_pa
 
     historico_creator(id_param)
 
-def adicionar_material(aluno):
-    print("a")
-
 def historico_creator(id_param):
     # Os 3 caminhos do csv de cada aluno
     caminho_aulas_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
