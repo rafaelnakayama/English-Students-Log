@@ -140,7 +140,7 @@ def main_menu():
                 else:
                     print(f"\033[1;31mA Opção '{opcao}' não exite.\033[1;35m")
 
-                if opcao == 1 or opcao == 2:
+                if opcao < 5:
                     ui.menu_materiais()
                 elif opcao == 5:
                     ui.menu_interface()

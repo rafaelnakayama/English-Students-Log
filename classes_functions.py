@@ -66,9 +66,7 @@ def adicionar_material(id_param, tipo_param):
     # Adicionando ao respectivo csv
     df_origem = pd.read_csv(caminho_relativo)
 
-    df_indexado = df_origem.set_index('id')
-
-    linha_copia = df_indexado.loc[id_material].copy()
+    linha_copia = df_origem[df_origem['id'] == id_material].iloc[0] # Assegura com iloc[0] a captura de uma linha apenas
 
     df_destino = pd.read_csv(caminho_destino)
 
