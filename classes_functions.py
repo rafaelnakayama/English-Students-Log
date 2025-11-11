@@ -30,7 +30,7 @@ def adicionar_material(id_param, tipo_param):
 
     if tipo_param == 1:
         caminho_relativo = ARQUIVOS['aulas']
-        caminho_destino = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
+        caminho_destino = caminho_aulas_aluno_csv
 
         nome_material = str(input("\033[32mInforme o nome da Aula: \033[1;31m")).strip()
         material_existe(nome_material, tipo_param) # Vai retornar True ou False
@@ -40,7 +40,7 @@ def adicionar_material(id_param, tipo_param):
 
     elif tipo_param == 2:
         caminho_relativo = ARQUIVOS['textos']
-        caminho_destino = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
+        caminho_destino = caminho_textos_aluno_csv
 
         nome_material = str(input("\033[32mInforme o nome do Texto: \033[1;31m")).strip()
         material_existe(nome_material, tipo_param) # Vai retornar True ou False
@@ -50,7 +50,7 @@ def adicionar_material(id_param, tipo_param):
 
     else:
         caminho_relativo = ARQUIVOS['exercicios']
-        caminho_destino = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
+        caminho_destino = caminho_exercicios_aluno_csv
 
         nome_material = str(input("\033[32mInforme o nome Exercicio: \033[1;31m")).strip()
         material_existe(nome_material, tipo_param) # Vai retornar True ou False
@@ -86,8 +86,6 @@ def pegar_id_por_nome_M(nome, caminho):
     else:
         return None
 
-
-
 def material_existe(nome_teste, tipo_param):
     caminho_relativo = None
 
@@ -108,7 +106,6 @@ def material_existe(nome_teste, tipo_param):
     # se houver, este valor sera maior ou igual a 1, se nao, sera igual a zero
     # Com o return podemos retornar um valor booleano True se a condicional (>= 1) for verdadeira, e False caso contrario
     return len(df.loc[df['Nome'] == nome_teste]) >= 1
-
 
 def validar_tipo():
     print("\033[38;5;208m(1) Aulas, (2) Textos ou (3) Exercicios\033[0m")
