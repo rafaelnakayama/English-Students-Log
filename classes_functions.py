@@ -23,23 +23,43 @@ def adicionar_material(id_param, tipo_param):
     caminho_textos_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
     caminho_exercicios_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
 
+    # Inicia as variaveis que vao receber diferentes valores dependendo dos inputs
     caminho_relativo = None
-
-    nome_material = str(input("\033[32mInforme o nome do aluno: \033[1;31m")).strip()
-    # Chamar funcao para averiguar se o material existe
-    while (sf.aluno_existe(nome_aluno_m) == False):
-        print("\033[1;31mEste aluno não está no banco de dados.\033[1;31m")
-        nome_material = str(input("\033[32mInforme o nome do aluno: \033[1;31m"))
+    nome_material = None
 
     if tipo_param == 1:
         caminho_relativo = ARQUIVOS['aulas']
+
+        nome_material = str(input("\033[32mInforme o nome da Aula: \033[1;31m")).strip()
+        material_existe(nome_material, tipo_param)
+        while (material_existe(nome_material, tipo_param) == False):
+            print("\033[1;31mEsta aula não está no banco de dados.\033[1;31m")
+            nome_material = str(input("\033[32mInforme o nome da Aula: \033[1;31m"))
+
     elif tipo_param == 2:
         caminho_relativo = ARQUIVOS['textos']
+
+        nome_material = str(input("\033[32mInforme o nome do Texto: \033[1;31m")).strip()
+        material_existe(nome_material, tipo_param)
+        while (material_existe(nome_material, tipo_param) == False):
+            print("\033[1;31mEste Texto não está no banco de dados.\033[1;31m")
+            nome_material = str(input("\033[32mInforme o nome do Texto: \033[1;31m"))
+
     else:
         caminho_relativo = ARQUIVOS['exercicios']
 
+        nome_material = str(input("\033[32mInforme o nome Exercicio: \033[1;31m")).strip()
+        material_existe(nome_material, tipo_param)
+        while (material_existe(nome_material, tipo_param) == False):
+            print("\033[1;31mEste Exercicio não está no banco de dados.\033[1;31m")
+            nome_material = str(input("\033[32mInforme o nome do Exercicio: \033[1;31m"))
+
     with open(caminho_relativo, newline='') as arquivocsv:
         df = pd.read_csv(arquivocsv)
+        
+
+
+
 
 def material_existe(nome_teste, tipo_param):
     caminho_relativo = None
