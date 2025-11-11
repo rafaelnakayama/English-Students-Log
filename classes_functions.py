@@ -33,6 +33,7 @@ def adicionar_material(id_param, tipo_param):
         caminho_destino = caminho_aulas_aluno_csv
 
         nome_material = str(input("\033[32mInforme o nome da Aula: \033[1;31m")).strip()
+
         material_existe(nome_material, tipo_param) # Vai retornar True ou False
         while (material_existe(nome_material, tipo_param) == False):
             print("\033[1;31mEsta aula não está no banco de dados.\033[1;31m")
@@ -43,6 +44,7 @@ def adicionar_material(id_param, tipo_param):
         caminho_destino = caminho_textos_aluno_csv
 
         nome_material = str(input("\033[32mInforme o nome do Texto: \033[1;31m")).strip()
+
         material_existe(nome_material, tipo_param) # Vai retornar True ou False
         while (material_existe(nome_material, tipo_param) == False):
             print("\033[1;31mEste Texto não está no banco de dados.\033[1;31m")
@@ -53,6 +55,7 @@ def adicionar_material(id_param, tipo_param):
         caminho_destino = caminho_exercicios_aluno_csv
 
         nome_material = str(input("\033[32mInforme o nome Exercicio: \033[1;31m")).strip()
+
         material_existe(nome_material, tipo_param) # Vai retornar True ou False
         while (material_existe(nome_material, tipo_param) == False):
             print("\033[1;31mEste Exercicio não está no banco de dados.\033[1;31m")
@@ -70,6 +73,9 @@ def adicionar_material(id_param, tipo_param):
     df_destino = pd.read_csv(caminho_destino)
 
     df_destino.loc[len(df_destino)] = linha_copia
+    df_destino.to_csv(caminho_destino, index=False)
+
+    print(f"\nMaterial {nome_material} adicionado com sucesso ao historico do aluno com ID {id_param}.")
 
 def pegar_id_por_nome_M(nome, caminho):
 
@@ -105,7 +111,7 @@ def material_existe(nome_teste, tipo_param):
     # este len serve para verificar se existe ao menos uma linha com o nome do material
     # se houver, este valor sera maior ou igual a 1, se nao, sera igual a zero
     # Com o return podemos retornar um valor booleano True se a condicional (>= 1) for verdadeira, e False caso contrario
-    return len(df.loc[df['Nome'] == nome_teste]) >= 1
+    return len(df.loc[df['name'] == nome_teste]) >= 1
 
 def validar_tipo():
     print("\033[38;5;208m(1) Aulas, (2) Textos ou (3) Exercicios\033[0m")
