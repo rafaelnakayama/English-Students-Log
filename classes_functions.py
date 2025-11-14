@@ -1,12 +1,7 @@
-"""
-This file contains the features of the english materials
-"""
-
 import csv
 import os
 import pandas as pd
 from tabulate import tabulate
-
 import re
 
 # para caminhos
@@ -18,6 +13,66 @@ ARQUIVOS = {
     'exercicios': os.path.join(base_dir, PASTA_DATA, 'exercicios.csv'),
     'textos': os.path.join(base_dir, PASTA_DATA, 'textos.csv')
 }
+
+"""
+Identifica o tipo de Material
+"""
+
+def validar_tipo():
+    print("\033[38;5;208m(1) Aulas, (2) Textos ou (3) Exercicios\033[0m")
+    Validar_2 = False
+    while (Validar_2 == False):
+        try:
+            tipo_material = int(input("\n\033[38;5;208mSelecione o Material: \033[0m"))
+            if tipo_material not in [1, 2, 3]:
+                raise ValueError("fora_do_intervalo")
+            Validar_2 = True
+        except ValueError as e:
+            if str(e) == "fora_do_intervalo":
+                print("\033[1;31mO valor deve estar entre 1 e 3.\033[0m")
+            else:
+                print("\033[1;31mO caractére inserido não é inteiro.\033[0m")
+            continue
+        except Exception:
+            print("\033[1;31mOutra coisa deu errada.\033[0m")
+            continue
+    
+    return tipo_material
+
+"""
+OPCAO 1 DO MENU MATERIAIS
+"""
+
+def visualizar_material(type):
+
+    caminho_relativo = None
+
+    if type == 1:
+        caminho_relativo = ARQUIVOS['aulas']
+    elif type == 2:
+        caminho_relativo = ARQUIVOS['textos']
+    else:
+        caminho_relativo = ARQUIVOS['exercicios']
+
+    # Abre e faz a leitura do .csv
+    with open(caminho_relativo, newline='') as arquivocsv:
+
+        leitor_csv = csv.DictReader(arquivocsv)
+
+        headers = ['id','name']
+        table = [] # Lista Vazia
+
+        # Insere cada campo da linha especifica dentro da tabela
+        for linha in leitor_csv:
+            table.append([linha['id'], linha['name']])
+
+        print(tabulate(table, headers=headers, tablefmt="fancy_grid")) # Usa o cabecalho headers que definimos anteriormente
+        # Dispensa o uso de loop, printa cada linha uma vez assim como o cabecalho
+
+
+"""
+OPCAO 3 DO MENU MATERIAIS
+"""
 
 def adicionar_material(id_param, tipo_param):
     # Os 3 caminhos do csv de cada aluno
@@ -69,7 +124,6 @@ def adicionar_material(id_param, tipo_param):
 
     print(f"\nMaterial {nome_inserido_normalizado} adicionado com sucesso ao historico do aluno com ID {id_param}.")
 
-
 def normalizar_nome_material(nome):
     nome = nome.strip().lower()
     nome = re.sub(r'\.pdf$|\.txt$|\.docx$', '', nome)  # remove extensão se houver
@@ -103,50 +157,3 @@ def material_existe(nome_teste, tipo_param):
     nome_teste_norm = normalizar_nome_material(nome_teste)
 
     return (df['name_norm'] == nome_teste_norm).any()
-
-def validar_tipo():
-    print("\033[38;5;208m(1) Aulas, (2) Textos ou (3) Exercicios\033[0m")
-    Validar_2 = False
-    while (Validar_2 == False):
-        try:
-            tipo_material = int(input("\n\033[38;5;208mSelecione o Material: \033[0m"))
-            if tipo_material not in [1, 2, 3]:
-                raise ValueError("fora_do_intervalo")
-            Validar_2 = True
-        except ValueError as e:
-            if str(e) == "fora_do_intervalo":
-                print("\033[1;31mO valor deve estar entre 1 e 3.\033[0m")
-            else:
-                print("\033[1;31mO caractére inserido não é inteiro.\033[0m")
-            continue
-        except Exception:
-            print("\033[1;31mOutra coisa deu errada.\033[0m")
-            continue
-    
-    return tipo_material
-
-def visualizar_material(type):
-
-    caminho_relativo = None
-
-    if type == 1:
-        caminho_relativo = ARQUIVOS['aulas']
-    elif type == 2:
-        caminho_relativo = ARQUIVOS['textos']
-    else:
-        caminho_relativo = ARQUIVOS['exercicios']
-
-    # Abre e faz a leitura do .csv
-    with open(caminho_relativo, newline='') as arquivocsv:
-
-        leitor_csv = csv.DictReader(arquivocsv)
-
-        headers = ['id','name']
-        table = [] # Lista Vazia
-
-        # Insere cada campo da linha especifica dentro da tabela
-        for linha in leitor_csv:
-            table.append([linha['id'], linha['name']])
-
-        print(tabulate(table, headers=headers, tablefmt="fancy_grid")) # Usa o cabecalho headers que definimos anteriormente
-        # Dispensa o uso de loop, printa cada linha uma vez assim como o cabecalho
