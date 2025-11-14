@@ -27,39 +27,29 @@ def adicionar_material(id_param, tipo_param):
     caminho_destino = None
     caminho_relativo = None
     nome_material = None
+    print_ui = None
 
     if tipo_param == 1:
         caminho_relativo = ARQUIVOS['aulas']
         caminho_destino = caminho_aulas_aluno_csv
-
-        nome_material = str(input("\033[32mInforme o nome da Aula: \033[1;31m")).strip()
-
-        material_existe(nome_material, tipo_param) # Vai retornar True ou False
-        while (material_existe(nome_material, tipo_param) == False):
-            print("\033[1;31mEsta aula não está no banco de dados.\033[1;31m")
-            nome_material = str(input("\033[32mInforme o nome da Aula: \033[1;31m"))
+        print_ui = "Aula"
 
     elif tipo_param == 2:
         caminho_relativo = ARQUIVOS['textos']
         caminho_destino = caminho_textos_aluno_csv
-
-        nome_material = str(input("\033[32mInforme o nome do Texto: \033[1;31m")).strip()
-
-        material_existe(nome_material, tipo_param) # Vai retornar True ou False
-        while (material_existe(nome_material, tipo_param) == False):
-            print("\033[1;31mEste Texto não está no banco de dados.\033[1;31m")
-            nome_material = str(input("\033[32mInforme o nome do Texto: \033[1;31m"))
+        print_ui = "Texto"
 
     else:
         caminho_relativo = ARQUIVOS['exercicios']
         caminho_destino = caminho_exercicios_aluno_csv
+        print_ui = "Exercicio"
 
-        nome_material = str(input("\033[32mInforme o nome Exercicio: \033[1;31m")).strip()
+    nome_material = str(input(f"\033[32mInformar o nome do {print_ui}: \033[1;31m")).strip()
 
-        material_existe(nome_material, tipo_param) # Vai retornar True ou False
-        while (material_existe(nome_material, tipo_param) == False):
-            print("\033[1;31mEste Exercicio não está no banco de dados.\033[1;31m")
-            nome_material = str(input("\033[32mInforme o nome do Exercicio: \033[1;31m"))
+    material_existe(nome_material, tipo_param) # Vai retornar True ou False
+    while (material_existe(nome_material, tipo_param) == False):
+        print(f"\033[1;31mEste {print_ui} não está no banco de dados.\033[1;31m")
+        nome_material = str(input(f"\033[32mInforme o nome do {print_ui}: \033[1;31m"))
 
     id_material = pegar_id_por_nome_M(nome_material, caminho_relativo)
 
