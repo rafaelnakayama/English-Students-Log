@@ -44,12 +44,7 @@ def main_menu():
         elif option == 3:
             ui.menu_option_3()
 
-            alterar_por_nome = str(input("\n\033[38;5;208mInforme o do aluno a ser editado: \033[0m"))
-            sf.aluno_existe(alterar_por_nome)
-
-            while (sf.aluno_existe(alterar_por_nome) == False):
-                print("\033[1;31mEste aluno não está no banco de dados.\033[0m")
-                alterar_por_nome = str(input("\033[32mInforme o nome do aluno: \033[0m"))
+            alterar_por_nome = ui.pegar_nome()
 
             chave, valor_atualizado = ui.inputs_editar()
 
@@ -59,26 +54,9 @@ def main_menu():
             ui.menu_interface()
 
         elif option == 4:
-            nome_aluno = str(input("\033[32mInforme o nome do aluno: \033[1;31m")).lower().strip()
-            sf.aluno_existe(nome_aluno)
+            nome_aluno = ui.pegar_nome()
 
-            while (sf.aluno_existe(nome_aluno) == False):
-                print("\033[1;31mEste aluno não está no banco de dados.\033[1;31m")
-                nome_aluno = str(input("\033[32mInforme o nome do aluno: \033[1;31m"))
-
-            verifica = str(input(f"\033[41mTEM CERTEZA QUE DESEJA APAGAR O ALUNO {nome_aluno} (S/N): \033[0m")).lower().strip()
-            while (verifica != "s" and verifica != "n"):
-                print("\033[1;31mOpcao Invalida.\033[1;31m")
-                verifica = str(input(f"\033[41mTEM CERTEZA QUE DESEJA APAGAR O ALUNO {nome_aluno} (S/N): \033[0m")).lower().strip()
-
-            if verifica == "s":
-                nome_check = str(input(f"\033[41mDIGITE O NOME {nome_aluno} PARA APAGAR: \033[0m")).lower().strip()
-                while(nome_check != nome_aluno):
-                    nome_check = str(input(f"\033[41mDIGITE O NOME {nome_aluno} PARA APAGAR: \033[0m")).lower().strip()
-            else:
-                print("\n\033[1;35mOperação cancelada. Retornando ao menu principal...\033[0m")
-                ui.menu_interface()
-                continue
+            nome_check = ui.confirmar_remover(nome_aluno)
 
             id_aluno = sf.pegar_id_por_nome(nome_check)
 
@@ -109,12 +87,7 @@ def main_menu():
                     cf.visualizar_material(tipo_v)
 
                 elif opcao == 2:
-                    nome_aluno_h = str(input("\033[32mInforme o nome do aluno: \033[1;31m")).lower().strip()
-                    sf.aluno_existe(nome_aluno_h)
-
-                    while (sf.aluno_existe(nome_aluno_h) == False):
-                        print("\033[1;31mEste aluno não está no banco de dados.\033[1;31m")
-                        nome_aluno_h = str(input("\033[32mInforme o nome do aluno: \033[1;31m"))
+                    nome_aluno_h = ui.pegar_nome()
 
                     id_aluno_h = sf.pegar_id_por_nome(nome_aluno_h)
 
@@ -123,12 +96,7 @@ def main_menu():
                     cf.visualizar_historico(id_aluno_h, tipo_h)
 
                 elif opcao == 3:
-                    nome_aluno_m = str(input("\033[32mInforme o nome do aluno: \033[1;31m")).lower().strip()
-                    sf.aluno_existe(nome_aluno_m)
-
-                    while (sf.aluno_existe(nome_aluno_m) == False):
-                        print("\033[1;31mEste aluno não está no banco de dados.\033[1;31m")
-                        nome_aluno_m = str(input("\033[32mInforme o nome do aluno: \033[1;31m"))
+                    nome_aluno_m = ui.pegar_nome()
 
                     id_aluno_m = sf.pegar_id_por_nome(nome_aluno_m)
 
@@ -136,7 +104,9 @@ def main_menu():
 
                     cf.adicionar_material(id_aluno_m, tipo_m)
                     
-                # opcao == 4 (remove) yet to be made
+                elif opcao == 4:
+                    nome_aluno_r = ui.pegar_nome()
+
 
                 elif opcao == 5:
                     print("\n\033[1;35mRetornando ao menu principal\033[1;35m")

@@ -5,6 +5,7 @@ This file contains the features of the student
 import csv
 import os
 import pandas as pd
+import ui_functions as ui
 
 from tabulate import tabulate
 
@@ -93,23 +94,27 @@ def visualizar_alunos():
 
 def remover_aluno(aluno, id_aluno):
 
-    # Os 3 caminhos do csv de cada aluno
-    caminho_aulas_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_aluno}_aulas.csv")
-    caminho_textos_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_aluno}_textos.csv")
-    caminho_exercicios_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_aluno}_exercicios.csv")
+    if aluno == None:
+        print("\n\033[1;35mOperação cancelada. Retornando ao menu principal...\033[0m")
+        
+    else:
+        # Os 3 caminhos do csv de cada aluno
+        caminho_aulas_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_aluno}_aulas.csv")
+        caminho_textos_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_aluno}_textos.csv")
+        caminho_exercicios_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_aluno}_exercicios.csv")
 
-    # dataframes
-    df = pd.read_csv(caminho_csv)
+        # dataframes
+        df = pd.read_csv(caminho_csv)
 
-    # Remove do students.csv por nome
-    df_remover_por_valor = df[df['Nome'] != f'{aluno}']
-    df_remover_por_valor.to_csv("data/students.csv", index=False)
+        # Remove do students.csv por nome
+        df_remover_por_valor = df[df['Nome'] != f'{aluno}']
+        df_remover_por_valor.to_csv("data/students.csv", index=False)
 
-    os.remove(caminho_aulas_aluno_csv)
-    os.remove(caminho_textos_aluno_csv)
-    os.remove(caminho_exercicios_aluno_csv)
+        os.remove(caminho_aulas_aluno_csv)
+        os.remove(caminho_textos_aluno_csv)
+        os.remove(caminho_exercicios_aluno_csv)
 
-    print(f"\nSUCESSO! o aluno {aluno} foi removido com sucesso.")
+        print(f"\nSUCESSO! o aluno {aluno} foi removido com sucesso.")
 
 def pegar_id_por_nome(nome):
 

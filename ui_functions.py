@@ -76,6 +76,31 @@ def menu_option_3():
     print(f"{CORES['amarelo']}4) Alterar Dia do Pagamento{CORES['reset']}")
     print(f"{CORES['amarelo']}5) Alterar Nível{CORES['reset']}")
 
+def pegar_nome():
+    nome_aluno = str(input("\033[32mInforme o nome do aluno: \033[1;31m")).lower().strip()
+    sf.aluno_existe(nome_aluno)
+    while (sf.aluno_existe(nome_aluno) == False):
+        print(f"\033[1;31mO aluno(a) {nome_aluno} não está no banco de dados.\033[1;31m")
+        nome_aluno = str(input("\033[32mInforme o nome do aluno: \033[1;31m"))
+
+    return nome_aluno
+
+def confirmar_remover(nome_aluno):
+    verifica = str(input(f"\033[41mTEM CERTEZA QUE DESEJA APAGAR O ALUNO {nome_aluno} (S/N): \033[0m")).lower().strip()
+
+    while (verifica != "s" and verifica != "n"):
+        print("\033[1;31mOpcao Invalida.\033[1;31m")
+        verifica = str(input(f"\033[41mTEM CERTEZA QUE DESEJA APAGAR O ALUNO {nome_aluno} (S/N): \033[0m")).lower().strip()
+
+    if verifica == "s":
+        nome_check = str(input(f"\033[41mDIGITE O NOME {nome_aluno} PARA APAGAR: \033[0m")).lower().strip()
+        while(nome_check != nome_aluno):
+            nome_check = str(input(f"\033[41mDIGITE O NOME {nome_aluno} PARA APAGAR: \033[0m")).lower().strip()
+    else:
+        nome_check = None
+
+    return nome_check
+
 def inputs_cadastro():
 
     # Gera o ID do aluno uuid.uuid4()
