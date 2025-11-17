@@ -116,6 +116,15 @@ def adicionar_material(id_param, tipo_param):
         nome_01 = str(input(f"\033[32mInforme o nome do {print_ui}: \033[1;31m"))
         nome_inserido_normalizado = normalizar_nome_material(nome_01)
 
+    while (material_cadastrado(nome_inserido_normalizado, tipo_param, id_param) == True):
+        print(f"\033[1;31mEste {print_ui} já foi cadastrado.\033[1;31m")
+        nome_01 = str(input(f"\033[32mInforme o nome de outro {print_ui}: \033[1;31m"))
+        nome_inserido_normalizado = normalizar_nome_material(nome_01)
+        while (material_existe(nome_inserido_normalizado, tipo_param) == False):
+            print(f"\033[1;31mEste {print_ui} não está no banco de dados.\033[1;31m")
+            nome_01 = str(input(f"\033[32mInforme o nome do {print_ui}: \033[1;31m"))
+            nome_inserido_normalizado = normalizar_nome_material(nome_01)
+
     id_material = pegar_id_por_nome_M(nome_inserido_normalizado, caminho_origem)
 
     # Adicionando ao respectivo csv
@@ -231,6 +240,27 @@ def material_existe(nome_teste, tipo_param):
         caminho = ARQUIVOS['textos']
     else:
         caminho = ARQUIVOS['exercicios']
+
+    df = pd.read_csv(caminho)
+
+    df['name_norm'] = df['name'].apply(normalizar_nome_material)
+    nome_teste_norm = normalizar_nome_material(nome_teste)
+
+    return (df['name_norm'] == nome_teste_norm).any()
+
+def material_cadastrado(nome_teste, tipo_param, id_param):
+
+    # Os 3 caminhos do csv de cada aluno
+    caminho_aulas_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
+    caminho_textos_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
+    caminho_exercicios_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
+
+    if tipo_param == 1:
+        caminho = caminho_aulas_aluno_csv
+    elif tipo_param == 2:
+        caminho = caminho_textos_aluno_csv
+    else:
+        caminho = caminho_exercicios_aluno_csv
 
     df = pd.read_csv(caminho)
 
