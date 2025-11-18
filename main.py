@@ -46,7 +46,6 @@ def main_menu():
 
             sf.remover_aluno(nome_check, id_aluno)
 
-            print("\n")
             ui.menu_interface()
 
         elif option == 5:

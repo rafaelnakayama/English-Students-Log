@@ -49,7 +49,7 @@ def menu_materiais():
 
     print(f"\n{CORES['ORANGE_256']}{CORES['BOLD']}_MENU AULAS_{CORES['reset']}\n")
     print(f"{CORES['ORANGE_256']}1) Visualizar Material{CORES['reset']}")
-    print(f"{CORES['ORANGE_256']}2) Histórico de Aulas{CORES['reset']}")
+    print(f"{CORES['ORANGE_256']}2) Histórico do Aluno{CORES['reset']}")
     print(f"{CORES['ORANGE_256']}3) Adicionar ao Histórico{CORES['reset']}")
     print(f"{CORES['ORANGE_256']}4) Remover do Histórico{CORES['reset']}")
     print(f"{CORES['ORANGE_256']}5) Voltar{CORES['reset']}")
@@ -64,7 +64,7 @@ def menu_interface():
     print(f"{CORES['amarelo']}2) Visualizar Alunos{CORES['reset']}")
     print(f"{CORES['amarelo']}3) Editar Aluno{CORES['reset']}")
     print(f"{CORES['amarelo']}4) Remover Aluno{CORES['reset']}")
-    print(f"{CORES['amarelo']}5) Materiais{CORES['reset']}")
+    print(f"{CORES['amarelo']}5) Menu Materiais{CORES['reset']}")
     print(f"{CORES['amarelo']}6) Sair do programa{CORES['reset']}")
 
     print(f"\n" + hoje.strftime("%x"))
@@ -87,16 +87,14 @@ def pegar_nome():
     return nome_aluno
 
 def confirmar_remover(nome_aluno):
-    verifica = str(input(f"\033[41mTEM CERTEZA QUE DESEJA APAGAR O ALUNO {nome_aluno} (S/N): \033[0m")).lower().strip()
-
+    verifica = str(input(f"{CORES['vermelho']}TEM CERTEZA QUE DESEJA APAGAR O ALUNO {CORES['reset']}{CORES['fundo_vermelho']}{nome_aluno}{CORES['reset']}{CORES['vermelho']} (S/N){CORES['reset']}: ")).lower().strip()
     while (verifica != "s" and verifica != "n"):
-        print("\033[1;31mOpcao Invalida.\033[1;31m")
-        verifica = str(input(f"\033[41mTEM CERTEZA QUE DESEJA APAGAR O ALUNO {nome_aluno} (S/N): \033[0m")).lower().strip()
-
+        print(f"{CORES['vermelho_b']}Opcao Invalida.{CORES['reset']}")
+        verifica = str(input(f"{CORES['vermelho']}TEM CERTEZA QUE DESEJA APAGAR O ALUNO {CORES['reset']}{CORES['fundo_vermelho']}{nome_aluno}{CORES['reset']}{CORES['vermelho']} (S/N){CORES['reset']}: ")).lower().strip()
     if verifica == "s":
-        nome_check = str(input(f"\033[41mDIGITE O NOME {nome_aluno} PARA APAGAR: \033[0m")).lower().strip()
+        nome_check = str(input(f"{CORES['vermelho']}DIGITE O NOME {CORES['fundo_vermelho']}{nome_aluno}{CORES['reset']}{CORES['vermelho']} PARA APAGAR:{CORES['reset']} ")).lower().strip()
         while(nome_check != nome_aluno):
-            nome_check = str(input(f"\033[41mDIGITE O NOME {nome_aluno} PARA APAGAR: \033[0m")).lower().strip()
+            nome_check = str(input(f"{CORES['vermelho']}DIGITE O NOME {CORES['fundo_vermelho']}{nome_aluno}{CORES['reset']}{CORES['vermelho']} PARA APAGAR:{CORES['reset']} ")).lower().strip()
     else:
         nome_check = None
 

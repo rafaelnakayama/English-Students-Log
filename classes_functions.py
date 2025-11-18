@@ -55,12 +55,6 @@ def visualizar_historico(id_param, tipo):   # Opcao 2 do menu materiais
         print(tabulate(table, headers=headers, tablefmt="fancy_grid"))
 
 def adicionar_material(id_param, tipo_param):   # Opcao 3 do menu materiais
-
-    caminho_destino = None
-    caminho_origem = None
-    nome_01 = None
-    print_ui = None
-
     if tipo_param == 1:
         caminho_origem = ARQUIVOS['aulas']
         caminho_destino = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
@@ -109,23 +103,14 @@ def adicionar_material(id_param, tipo_param):   # Opcao 3 do menu materiais
     print(f"\nMaterial {nome_inserido_normalizado} ADICIONADO com sucesso ao historico do aluno com ID {id_param}.")
 
 def remover_do_historico(id_param, tipo_param):     # Opcao 4 do menu materiais
-    
-    caminho_aulas_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
-    caminho_textos_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
-    caminho_exercicios_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
-
-    caminho_relativo = None
-    nome_remover = None
-    print_ui = None
-
     if tipo_param == 1:
-        caminho_relativo = caminho_aulas_aluno_csv
+        caminho_relativo = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
         print_ui = "Aula"
     elif tipo_param == 2:
-        caminho_relativo = caminho_textos_aluno_csv
+        caminho_relativo = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
         print_ui = "Texto"
     else:
-        caminho_relativo = caminho_exercicios_aluno_csv
+        caminho_relativo = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
         print_ui = "Exercicio"
 
     nome_remover = str(input(f"\033[32mInformar o nome do {print_ui}: \033[1;31m")).strip()

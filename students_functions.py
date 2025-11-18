@@ -45,7 +45,6 @@ def historico_creator(id_param):
 
 def criar_csv_vazio(caminho):
     vazio_material = 0
-
     material_existe = os.path.exists(caminho)
 
     if material_existe:
@@ -61,9 +60,7 @@ def criar_csv_vazio(caminho):
 
 def visualizar_alunos():
     with open(caminho_csv, newline='') as arquivocsv:
-
         leitor_csv = csv.DictReader(arquivocsv)
-
         headers = ['ID','Nome', 'Status', 'Aulas Assistidas', 'Dia do Pagamento', 'Nível']
         table = [] 
 
