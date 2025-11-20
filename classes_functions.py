@@ -2,16 +2,14 @@ import csv
 import os
 import pandas as pd
 import re
+import utils
 
 from tabulate import tabulate
 
-base_dir = os.path.dirname(__file__)
-PASTA_DATA = 'data'
-
 ARQUIVOS = {
-    'aulas': os.path.join(base_dir, PASTA_DATA, 'aulas.csv'),
-    'exercicios': os.path.join(base_dir, PASTA_DATA, 'exercicios.csv'),
-    'textos': os.path.join(base_dir, PASTA_DATA, 'textos.csv')
+    'aulas': utils.resource_path('data/aulas.csv'),
+    'exercicios': utils.resource_path('data/exercicios.csv'),
+    'textos': utils.resource_path('data/textos.csv')
 }
 
 def visualizar_material(tipo):      # Opcao 1 do menu materiais
@@ -36,11 +34,11 @@ def visualizar_material(tipo):      # Opcao 1 do menu materiais
 
 def visualizar_historico(id_param, tipo):   # Opcao 2 do menu materiais
     if tipo == 1:
-        caminho_relativo = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
+        caminho_relativo = utils.resource_path(os.path.join("data", "historicos", f"{id_param}_aulas.csv"))
     elif tipo == 2:
-        caminho_relativo = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
+        caminho_relativo = utils.resource_path(os.path.join("data", "historicos", f"{id_param}_textos.csv"))
     else:
-        caminho_relativo = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
+        caminho_relativo = utils.resource_path(os.path.join("data", "historicos", f"{id_param}_exercicios.csv"))
 
     with open(caminho_relativo, newline='') as arquivocsv:
 
@@ -57,17 +55,17 @@ def visualizar_historico(id_param, tipo):   # Opcao 2 do menu materiais
 def adicionar_material(id_param, tipo_param):   # Opcao 3 do menu materiais
     if tipo_param == 1:
         caminho_origem = ARQUIVOS['aulas']
-        caminho_destino = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
+        caminho_destino = utils.resource_path(os.path.join("data", "historicos", f"{id_param}_aulas.csv"))
         print_ui = "Aula"
 
     elif tipo_param == 2:
         caminho_origem = ARQUIVOS['textos']
-        caminho_destino = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
+        caminho_destino = utils.resource_path(os.path.join("data", "historicos", f"{id_param}_textos.csv"))
         print_ui = "Texto"
 
     else:
         caminho_origem = ARQUIVOS['exercicios']
-        caminho_destino = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
+        caminho_destino = utils.resource_path(os.path.join("data", "historicos", f"{id_param}_exercicios.csv"))
         print_ui = "Exercicio"
 
     nome_01 = str(input(f"\033[32mInformar o nome do {print_ui}: \033[1;31m")).strip()
@@ -104,13 +102,13 @@ def adicionar_material(id_param, tipo_param):   # Opcao 3 do menu materiais
 
 def remover_do_historico(id_param, tipo_param):     # Opcao 4 do menu materiais
     if tipo_param == 1:
-        caminho_relativo = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
+        caminho_relativo = utils.resource_path(os.path.join("data", "historicos", f"{id_param}_aulas.csv"))
         print_ui = "Aula"
     elif tipo_param == 2:
-        caminho_relativo = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
+        caminho_relativo = utils.resource_path(os.path.join("data", "historicos", f"{id_param}_textos.csv"))
         print_ui = "Texto"
     else:
-        caminho_relativo = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
+        caminho_relativo = utils.resource_path(os.path.join("data", "historicos", f"{id_param}_exercicios.csv"))
         print_ui = "Exercicio"
 
     nome_remover = str(input(f"\033[32mInformar o nome do {print_ui}: \033[1;31m")).strip()
@@ -186,11 +184,11 @@ def material_existe(nome_teste, tipo_param):    # recebe o tipo e o nome do mate
 
 def material_cadastrado(nome_teste, tipo_param, id_param):
     if tipo_param == 1:
-        caminho = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
+        caminho = utils.resource_path(os.path.join("data", "historicos", f"{id_param}_aulas.csv"))
     elif tipo_param == 2:
-        caminho = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
+        caminho = utils.resource_path(os.path.join("data", "historicos", f"{id_param}_textos.csv"))
     else:
-        caminho = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
+        caminho = utils.resource_path(os.path.join("data", "historicos", f"{id_param}_exercicios.csv"))
 
     df = pd.read_csv(caminho)
 

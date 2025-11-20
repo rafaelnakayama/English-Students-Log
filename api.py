@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import utils
 
 from google.auth.transport.requests import Request  # Requiscoes http
 from google.oauth2.credentials import Credentials # Gerencia o token de Acesso
@@ -9,9 +10,9 @@ from googleapiclient.discovery import build
 # Define o Escopo (O que o programa pode fazer no drive) da API, neste caso apenas leitura
 SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
 
-caminho_token = os.path.join(os.path.dirname(__file__), "data", "token.json")
+caminho_token = utils.resource_path(os.path.join("data", "token.json"))
 
-camninho_cred = os.path.join(os.path.dirname(__file__), "data", "credenciais.json")
+caminho_cred = utils.resource_path(os.path.join("data", "credenciais.json"))
 
 PASTA_CURSO_ID = "10n1IG9bxWjaR_V5bpw6p_1Y32SrhEdCY"
 
@@ -25,7 +26,7 @@ def autenticar():
         if credenciais and credenciais.expired and credenciais.refresh_token:
             credenciais.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(camninho_cred, SCOPES)
+            flow = InstalledAppFlow.from_client_secrets_file(caminho_cred, SCOPES)
             credenciais = flow.run_local_server(port=0)
         # Salvar as credenciais para a proxima autenticacao
         with open(caminho_token, 'w') as token:
@@ -94,14 +95,14 @@ def criar_csvs(service):
     aulas_df['numero'] = aulas_df['name'].str.extract(r'Class\s+(\d+(?:\.\d+)?)').astype(float)
     aulas_df = aulas_df.sort_values(by="numero", ascending=True)
     aulas_df.drop(columns=['numero'], inplace=True)
-    aulas_df.to_csv("data/aulas.csv", index=False)
+    aulas_df.to_csv(utils.resource_path("data/aulas.csv"), index=False)
 
     textos_df = pd.DataFrame(todos_textos)
     textos_df = textos_df.sort_values(by="name", ascending=True)
-    textos_df.to_csv("data/textos.csv", index=False)
+    textos_df.to_csv(utils.resource_path("data/textos.csv"), index=False)
 
     atividades_df = pd.DataFrame(todas_atividades)
     atividades_df = atividades_df.sort_values(by="name", ascending=True)
-    atividades_df.to_csv("data/exercicios.csv", index=False)
+    atividades_df.to_csv(utils.resource_path("data/exercicios.csv"), index=False)
 
 criar_csvs(service)
