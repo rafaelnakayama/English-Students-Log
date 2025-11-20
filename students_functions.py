@@ -5,8 +5,8 @@ import utils
 
 from tabulate import tabulate
 
-caminho_csv = utils.resource_path(os.path.join("data", "students.csv"))
-historico_dir = utils.resource_path(os.path.join("data", "historicos"))
+caminho_csv = utils.resource_path("data", "students.csv")
+historico_dir = utils.resource_path("data", "historicos")
 
 def cadastrar_aluno(id_param,nome_param, status_param, aulas_param, pagamento_param, nivel_param):
     arquivo_existe = os.path.exists(caminho_csv)
