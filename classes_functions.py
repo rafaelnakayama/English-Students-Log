@@ -55,17 +55,17 @@ def visualizar_historico(id_param, tipo):   # Opcao 2 do menu materiais
 def adicionar_material(id_param, tipo_param):   # Opcao 3 do menu materiais
     if tipo_param == 1:
         caminho_origem = ARQUIVOS['aulas']
-        caminho_destino = utils.resource_path("data", "historicos", f"{id_param}_aulas.csv")
+        caminho_destino = utils.writable_path("data", "historicos", f"{id_param}_aulas.csv")
         print_ui = "Aula"
 
     elif tipo_param == 2:
         caminho_origem = ARQUIVOS['textos']
-        caminho_destino = utils.resource_path("data", "historicos", f"{id_param}_textos.csv")
+        caminho_destino = utils.writable_path("data", "historicos", f"{id_param}_textos.csv")
         print_ui = "Texto"
 
     else:
         caminho_origem = ARQUIVOS['exercicios']
-        caminho_destino = utils.resource_path("data", "historicos", f"{id_param}_exercicios.csv")
+        caminho_destino = utils.writable_path("data", "historicos", f"{id_param}_exercicios.csv")
         print_ui = "Exercicio"
 
     nome_01 = str(input(f"\033[32mInformar o nome do {print_ui}: \033[1;31m")).strip()
@@ -102,13 +102,13 @@ def adicionar_material(id_param, tipo_param):   # Opcao 3 do menu materiais
 
 def remover_do_historico(id_param, tipo_param):     # Opcao 4 do menu materiais
     if tipo_param == 1:
-        caminho_relativo = utils.resource_path("data", "historicos", f"{id_param}_aulas.csv")
+        caminho_relativo = utils.writable_path("data", "historicos", f"{id_param}_aulas.csv")
         print_ui = "Aula"
     elif tipo_param == 2:
-        caminho_relativo = utils.resource_path("data", "historicos", f"{id_param}_textos.csv")
+        caminho_relativo = utils.writable_path("data", "historicos", f"{id_param}_textos.csv")
         print_ui = "Texto"
     else:
-        caminho_relativo = utils.resource_path("data", "historicos", f"{id_param}_exercicios.csv")
+        caminho_relativo = utils.writable_path("data", "historicos", f"{id_param}_exercicios.csv")
         print_ui = "Exercicio"
 
     nome_remover = str(input(f"\033[32mInformar o nome do {print_ui}: \033[1;31m")).strip()

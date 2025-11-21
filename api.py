@@ -10,9 +10,9 @@ from googleapiclient.discovery import build
 # Define o Escopo (O que o programa pode fazer no drive) da API, neste caso apenas leitura
 SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
 
-caminho_token = utils.resource_path("data", "token.json")
+caminho_token = utils.writable_path("data", "token.json")
 
-caminho_cred = utils.resource_path("data", "credenciais.json")
+caminho_cred = utils.writable_path("data", "credenciais.json")
 
 PASTA_CURSO_ID = "10n1IG9bxWjaR_V5bpw6p_1Y32SrhEdCY"
 
@@ -95,14 +95,14 @@ def criar_csvs(service):
     aulas_df['numero'] = aulas_df['name'].str.extract(r'Class\s+(\d+(?:\.\d+)?)').astype(float)
     aulas_df = aulas_df.sort_values(by="numero", ascending=True)
     aulas_df.drop(columns=['numero'], inplace=True)
-    aulas_df.to_csv(utils.resource_path("data", "aulas.csv"), index=False)
+    aulas_df.to_csv(utils.writable_path("data", "aulas.csv"), index=False)
 
     textos_df = pd.DataFrame(todos_textos)
     textos_df = textos_df.sort_values(by="name", ascending=True)
-    textos_df.to_csv(utils.resource_path("data", "textos.csv"), index=False)
+    textos_df.to_csv(utils.writable_path("data", "textos.csv"), index=False)
 
     atividades_df = pd.DataFrame(todas_atividades)
     atividades_df = atividades_df.sort_values(by="name", ascending=True)
-    atividades_df.to_csv(utils.resource_path("data", "exercicios.csv"), index=False)
+    atividades_df.to_csv(utils.writable_path("data", "exercicios.csv"), index=False)
 
 criar_csvs(service)

@@ -5,8 +5,8 @@ import utils
 
 from tabulate import tabulate
 
-caminho_csv = utils.resource_path("data", "students.csv")
-historico_dir = utils.resource_path("data", "historicos")
+caminho_csv = utils.writable_path("data", "students.csv")
+historico_dir = utils.writable_path("data", "historicos")
 
 def cadastrar_aluno(id_param,nome_param, status_param, aulas_param, pagamento_param, nivel_param):
     arquivo_existe = os.path.exists(caminho_csv)
@@ -36,9 +36,9 @@ def cadastrar_aluno(id_param,nome_param, status_param, aulas_param, pagamento_pa
     historico_creator(id_param)
 
 def historico_creator(id_param):
-    caminho_aulas_aluno_csv = utils.resource_path("data", "historicos", f"{id_param}_aulas.csv")
-    caminho_textos_aluno_csv = utils.resource_path("data", "historicos", f"{id_param}_textos.csv")
-    caminho_exercicios_aluno_csv = utils.resource_path("data", "historicos", f"{id_param}_exercicios.csv")
+    caminho_aulas_aluno_csv = utils.writable_path("data", "historicos", f"{id_param}_aulas.csv")
+    caminho_textos_aluno_csv = utils.writable_path("data", "historicos", f"{id_param}_textos.csv")
+    caminho_exercicios_aluno_csv = utils.writable_path("data", "historicos", f"{id_param}_exercicios.csv")
 
     criar_csv_vazio(caminho_aulas_aluno_csv)
     criar_csv_vazio(caminho_textos_aluno_csv)
@@ -74,14 +74,14 @@ def remover_aluno(aluno, id_aluno):
     if aluno == None:
         print("\n\033[1;35mOperação cancelada. Retornando ao menu principal...\033[0m")
     else:
-        caminho_aulas_aluno_csv = utils.resource_path("data", "historicos", f"{id_aluno}_aulas.csv")
-        caminho_textos_aluno_csv = utils.resource_path("data", "historicos", f"{id_aluno}_textos.csv")
-        caminho_exercicios_aluno_csv = utils.resource_path("data", "historicos", f"{id_aluno}_exercicios.csv")
+        caminho_aulas_aluno_csv = utils.writable_path("data", "historicos", f"{id_aluno}_aulas.csv")
+        caminho_textos_aluno_csv = utils.writable_path("data", "historicos", f"{id_aluno}_textos.csv")
+        caminho_exercicios_aluno_csv = utils.writable_path("data", "historicos", f"{id_aluno}_exercicios.csv")
 
         df = pd.read_csv(caminho_csv)
 
         df_remover_por_valor = df[df['Nome'] != f'{aluno}']
-        df_remover_por_valor.to_csv(utils.resource_path("data", "students.csv"), index=False)
+        df_remover_por_valor.to_csv(utils.writable_path("data", "students.csv"), index=False)
 
         os.remove(caminho_aulas_aluno_csv)
         os.remove(caminho_textos_aluno_csv)
