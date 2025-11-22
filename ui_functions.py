@@ -52,7 +52,8 @@ def menu_materiais():
     print(f"{CORES['ORANGE_256']}2) Histórico do Aluno{CORES['reset']}")
     print(f"{CORES['ORANGE_256']}3) Adicionar ao Histórico{CORES['reset']}")
     print(f"{CORES['ORANGE_256']}4) Remover do Histórico{CORES['reset']}")
-    print(f"{CORES['ORANGE_256']}5) Voltar{CORES['reset']}")
+    print(f"{CORES['ORANGE_256']}5) Anotações{CORES['reset']}")
+    print(f"{CORES['ORANGE_256']}6) Voltar{CORES['reset']}")
 
 def menu_interface():
 
@@ -64,7 +65,7 @@ def menu_interface():
     print(f"{CORES['amarelo']}3) Editar Aluno{CORES['reset']}")
     print(f"{CORES['amarelo']}4) Remover Aluno{CORES['reset']}")
     print(f"{CORES['amarelo']}5) Menu Materiais{CORES['reset']}")
-    print(f"{CORES['amarelo']}6) Sair do programa{CORES['reset']}")
+    print(f"{CORES['amarelo']}6) Sair{CORES['reset']}")
 
     print(f"\n" + hoje.strftime("%x"))
 
@@ -171,3 +172,4 @@ def inputs_editar():
         valor_atualizado = str(input(f"{CORES['verde']}Nível: {CORES['reset']}"))
 
     return chave, valor_atualizado
+

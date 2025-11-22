@@ -4,6 +4,7 @@ import classes_functions as cf
 
 def main_menu():
     sf.verificar_csv()
+    cf.verificar_anotacoes_csv()
     ui.menu_interface()
 
     while (True):
@@ -96,17 +97,25 @@ def main_menu():
 
                     aulas_assistidas = ui.quantidade_aulas(id_aluno_remover)
                     sf.editar_aluno(nome_aluno_remover, 'Aulas', aulas_assistidas)
-
+                    
                 elif opcao == 5:
+                    opcao_lembretes = cf.notes_options()
+                    if opcao_lembretes == 1:
+                        cf.ler_anotacoes
+                    else:
+                        nome_aluno_anotar = ui.pegar_nome()
+                        id_aluno_anotar = sf.pegar_id_por_nome(nome_aluno_anotar)
+
+                elif opcao == 6:
                     print("\n\033[1;35mRetornando ao menu principal\033[1;35m")
                     Validar = True
 
                 else:
                     print(f"\033[1;31mA Opção '{opcao}' não exite.\033[1;35m")
 
-                if opcao < 5:
+                if opcao <= 5:
                     ui.menu_materiais()
-                elif opcao == 5:
+                elif opcao == 6:
                     ui.menu_interface()
                 else:
                     continue

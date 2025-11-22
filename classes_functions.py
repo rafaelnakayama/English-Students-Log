@@ -6,11 +6,63 @@ import utils
 
 from tabulate import tabulate
 
+caminho_anotacoes = utils.writable_path("data", "notes.csv")
+
 ARQUIVOS = {
     'aulas': utils.resource_path("data", "aulas.csv"),
     'exercicios': utils.resource_path("data", "exercicios.csv"),
     'textos': utils.resource_path("data", "textos.csv")
 }
+
+def verificar_anotacoes_csv():
+
+    header = ['ID', 'Nome', 'Lembretes']
+
+    if not os.path.exists(caminho_anotacoes):
+        with open(caminho_anotacoes, mode='w', newline='', encoding='utf-8') as arquivo:
+            escritor = csv.writer(arquivo)
+            escritor.writerow(header)
+        print("O arquivo 'notes.csv' foi criado do zero com cabecalho padrao.")
+
+    elif os.path.getsize(caminho_anotacoes) == 0:
+        with open(caminho_anotacoes, mode='w', newline='', encoding='utf-8') as arquivo:
+            escritor = csv.writer(arquivo)
+            escritor.writerow(header)
+        print("O arquivo estava vazio, o cabecalho foi criado.")
+
+def ler_anotacoes():
+    with open(caminho_anotacoes, newline='') as arquivocsv:
+        leitor_csv = csv.DictReader(arquivocsv)
+        headers = ['ID', 'Nome', 'Lembretes']
+        table = [] 
+
+        for linha in leitor_csv:
+            table.append([linha['ID'], linha['Nome'], linha['Lembretes']]) 
+
+        print(tabulate(table, headers=headers, tablefmt="fancy_grid"))
+
+def notes_options():
+    print("\033[38;5;208m(1) Visualizar lembretes, (2) Adicionar / Sobrescrever lembrete")
+    Validar_lem = False
+    while (Validar_lem == False):
+        try:
+            tipo = int(input("\n\033[38;5;208mSelecione a opcao: \033[0m"))
+            if tipo not in [1, 2]:
+                raise ValueError("fora_do_intervalo")
+            Validar_lem = True
+        except ValueError as e:
+            if str(e) == "fora_do_intervalo":
+                print("\033[1;31mO valor deve estar entre 1 e 2.\033[0m")
+            else:
+                print("\033[1;31mO caractére inserido não é inteiro.\033[0m")
+            continue
+        except Exception:
+            print("\033[1;31mOutra coisa deu errada.\033[0m")
+            continue
+    return tipo
+
+def criar_lembretes():
+    print("a")
 
 def visualizar_material(tipo):      # Opcao 1 do menu materiais
     if tipo == 1:
@@ -196,3 +248,4 @@ def material_cadastrado(nome_teste, tipo_param, id_param):
     nome_teste_norm = normalizar_nome_material(nome_teste)
 
     return (df['name_norm'] == nome_teste_norm).any()
+
