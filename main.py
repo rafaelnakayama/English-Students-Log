@@ -102,7 +102,6 @@ def main_menu():
                     sf.editar_aluno(nome_aluno_remover, 'Aulas', aulas_assistidas)
                     
                 elif opcao == 5:
-                    cf.predefinir_notes()
                     opcao_lembretes = cf.notes_options()
 
                     if opcao_lembretes == 1:
