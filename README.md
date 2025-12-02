@@ -63,7 +63,7 @@ No online database is required. After Drive syncing, everything runs locally.
 
 ## 📂 Project Structure (Simplified):
 
-![alt text]({structure}.png)
+![alt text](structure.png)
 
 ## 👤 Author
 
