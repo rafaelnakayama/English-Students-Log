@@ -173,3 +173,7 @@ def atualizar_csvs(service):
         atividades_local.to_csv(caminho_exercicios, index=False)
         for item in novos_ids_exercicios:
             print(f"📒 Nova atividade adicionada: {item['name']}")
+
+def get_service():
+    credenciais = autenticar()
+    return build('drive', 'v3', credentials=credenciais)
