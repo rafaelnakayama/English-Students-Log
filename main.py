@@ -2,11 +2,15 @@ import students_functions as sf
 import ui_functions as ui
 import classes_functions as cf
 
+from api import atualizar_csvs
+from api import service
+
 def main_menu():
     sf.verificar_csv()
     cf.verificar_anotacoes_csv()
     ui.menu_interface()
     sf.criar_pasta_historico()
+    atualizar_csvs(service)
 
     while (True):
         try:

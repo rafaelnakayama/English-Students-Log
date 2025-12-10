@@ -106,3 +106,70 @@ def criar_csvs(service):
     atividades_df.to_csv(utils.writable_path("data", "exercicios.csv"), index=False)
 
 criar_csvs(service)
+
+def atualizar_csvs(service):
+
+    results = service.files().list(
+        pageSize=50,
+        fields="files(id,name,parents)",
+        q=f"'{PASTA_CURSO_ID}' in parents and trashed = false"
+    ).execute()
+
+    itens_nivel1 = results.get("files", [])
+
+    novas_aulas = []
+    novos_textos = []
+    novas_atividades = []
+
+    for item in itens_nivel1:
+        nome = item["name"]
+        folder_id = item["id"]
+
+        sub = service.files().list(
+            fields="files(id,name)",
+            q=f"'{folder_id}' in parents and trashed = false and trashed = false"
+        ).execute().get("files", [])
+
+        if nome.endswith("(Aulas)"):
+            novas_aulas = sub
+        elif nome.endswith("(Textos)"):
+            novos_textos = sub
+        elif nome.endswith("(Atividades)"):
+            novas_atividades = sub
+
+    caminho_aulas = utils.writable_path("data", "aulas.csv")
+    caminho_textos = utils.writable_path("data", "textos.csv")
+    caminho_exercicios = utils.writable_path("data", "exercicios.csv")
+
+    aulas_local = pd.read_csv(caminho_aulas)
+    textos_local = pd.read_csv(caminho_textos)
+    atividades_local = pd.read_csv(caminho_exercicios)
+
+    set_local_aulas = set(aulas_local["id"])
+    set_local_textos = set(textos_local["id"])
+    set_local_atividades = set(atividades_local["id"])
+
+    novos_ids_aulas = [i for i in novas_aulas if i["id"] not in set_local_aulas]
+    novos_ids_textos = [i for i in novos_textos if i["id"] not in set_local_textos]
+    novos_ids_exercicios = [i for i in novas_atividades if i["id"] not in set_local_atividades]
+
+    if not novos_ids_aulas and not novos_ids_textos and not novos_ids_exercicios:
+        return
+
+    if novos_ids_aulas:
+        aulas_local = pd.concat([aulas_local, pd.DataFrame(novos_ids_aulas)], ignore_index=True)
+        aulas_local.to_csv(caminho_aulas, index=False)
+        for item in novos_ids_aulas:
+            print(f"📘 Nova aula adicionada: {item['name']}")
+
+    if novos_ids_textos:
+        textos_local = pd.concat([textos_local, pd.DataFrame(novos_ids_textos)], ignore_index=True)
+        textos_local.to_csv(caminho_textos, index=False)
+        for item in novos_ids_textos:
+            print(f"📙 Novo texto adicionado: {item['name']}")
+
+    if novos_ids_exercicios:
+        atividades_local = pd.concat([atividades_local, pd.DataFrame(novos_ids_exercicios)], ignore_index=True)
+        atividades_local.to_csv(caminho_exercicios, index=False)
+        for item in novos_ids_exercicios:
+            print(f"📒 Nova atividade adicionada: {item['name']}")
