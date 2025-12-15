@@ -57,12 +57,12 @@ The project was written in **Python** and uses:
 - `os` – file handling  
 - `uuid` – unique student IDs  
 - `tabulate` – formatted terminal tables  
-- `Google Drive API (GCP)` – retrieving course metadata from the cloud  
+- `Google Drive API` – retrieving course metadata from the cloud  
 - `PyInstaller` – packaging into a standalone executable
 
-PyInstaller command to create the .exe: 
+The **PyInstaller** command to create the .exe: 
 
-pyinstaller main.py --name "Students Log" --onefile --console --icon "StudentsLog.ico" --add-data "data;data"
+- pyinstaller main.py --name "Students Log" --onefile --console --icon "StudentsLog.ico" --add-data "data;data"
 
 No online database is required. After Drive syncing, everything runs locally.
 
