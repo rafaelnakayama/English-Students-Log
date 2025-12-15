@@ -10,7 +10,7 @@ def main_menu():
     sf.criar_pasta_historico()
 
     service = gcp.get_service()
-    gcp.criar_csvs(service)
+    gcp.csv_existe(service)
 
     while (True):
         try:

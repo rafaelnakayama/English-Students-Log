@@ -44,6 +44,19 @@ def get_service():
     credenciais = autenticar()
     return build('drive', 'v3', credentials=credenciais)
 
+def csv_existe(service):
+
+    if not os.path.exists(utils.writable_path("data", "aulas.csv")):
+        criar_csvs(service)
+
+    elif not os.path.exists(utils.writable_path("data", "textos.csv")):
+        criar_csvs(service)
+
+    elif not os.path.exists(utils.writable_path("data", "exercicios.csv")):
+        criar_csvs(service)
+    else:
+        pass
+
 def criar_csvs(service):
     try:
         results = service.files().list(
