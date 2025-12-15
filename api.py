@@ -134,6 +134,8 @@ def criar_csvs(service):
     print("\n Os CSVs foram criados/atualizados com sucesso\n")
 
 def atualizar_csvs(service):
+    print("Verificando atualizações no Drive...")
+
     results = service.files().list(
         pageSize=50,
         fields="files(id,name,parents)",
@@ -147,8 +149,8 @@ def atualizar_csvs(service):
     novas_atividades = []
 
     for item in itens_nivel1:
-        nome = item["name"]
-        folder_id = item["id"]
+        nome = item.get("name", "")
+        folder_id = item.get("id", "")
 
         sub = service.files().list(
             fields="files(id,name)",
@@ -162,36 +164,39 @@ def atualizar_csvs(service):
         elif nome.endswith("(Atividades)"):
             novas_atividades.extend(sub)
 
-    caminho_aulas = utils.writable_path("data", "aulas.csv")
-    caminho_textos = utils.writable_path("data", "textos.csv")
-    caminho_exercicios = utils.writable_path("data", "exercicios.csv")
+    caminhos = {
+        "aulas": utils.writable_path("data", "aulas.csv"),
+        "textos": utils.writable_path("data", "textos.csv"),
+        "atividades": utils.writable_path("data", "exercicios.csv"),
+    }
 
-    aulas_local = pd.read_csv(caminho_aulas)
-    textos_local = pd.read_csv(caminho_textos)
-    atividades_local = pd.read_csv(caminho_exercicios)
+    def atualizar_csv(caminho, novos_itens):
+        if not novos_itens:
+            return 0
 
-    set_local_aulas = set(aulas_local["id"])
-    set_local_textos = set(textos_local["id"])
-    set_local_atividades = set(atividades_local["id"])
+        if os.path.exists(caminho):
+            df_local = pd.read_csv(caminho)
+        else:
+            df_local = pd.DataFrame(columns=["id", "name"])
 
-    novos_ids_aulas = [i for i in novas_aulas if i["id"] not in set_local_aulas]
-    novos_ids_textos = [i for i in novos_textos if i["id"] not in set_local_textos]
-    novos_ids_exercicios = [i for i in novas_atividades if i["id"] not in set_local_atividades]
+        if "id" not in df_local.columns:
+            df_local["id"] = ""
 
-    if novos_ids_aulas:
-        aulas_local = pd.concat([aulas_local, pd.DataFrame(novos_ids_aulas)], ignore_index=True)
-        aulas_local.to_csv(caminho_aulas, index=False)
+        ids_existentes = set(df_local["id"].astype(str))
 
-    if novos_ids_textos:
-        textos_local = pd.concat([textos_local, pd.DataFrame(novos_ids_textos)], ignore_index=True)
-        textos_local.to_csv(caminho_textos, index=False)
+        novos = [i for i in novos_itens if i["id"] not in ids_existentes]
 
-    if novos_ids_exercicios:
-        atividades_local = pd.concat([atividades_local, pd.DataFrame(novos_ids_exercicios)], ignore_index=True)
-        atividades_local.to_csv(caminho_exercicios, index=False)
+        if novos:
+            df_novo = pd.DataFrame(novos)
+            df_local = pd.concat([df_local, df_novo], ignore_index=True)
+            df_local.to_csv(caminho, index=False)
 
-    print("Verificando atualizações no Drive...")
+        return len(novos)
 
-    print(f"Novas aulas: {len(novos_ids_aulas)}")
-    print(f"Novos textos: {len(novos_ids_textos)}")
-    print(f"Novas atividades: {len(novos_ids_exercicios)}")
+    n_aulas = atualizar_csv(caminhos["aulas"], novas_aulas)
+    n_textos = atualizar_csv(caminhos["textos"], novos_textos)
+    n_ativ = atualizar_csv(caminhos["atividades"], novas_atividades)
+
+    print(f"Novas aulas: {n_aulas}")
+    print(f"Novos textos: {n_textos}")
+    print(f"Novas atividades: {n_ativ}")

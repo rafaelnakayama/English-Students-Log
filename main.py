@@ -137,10 +137,7 @@ def main_menu():
                 gcp.atualizar_csvs(service)
             except Exception as e:
                 print(f"\n\033[1;31mNão foi possível atualizar os CSVs: {e}\033[0m")
-
-        elif option == 7:
             break
-
         else:
             print(f"\033[1;31mA Opção '{option}' não exite.\033[1;35m")
     

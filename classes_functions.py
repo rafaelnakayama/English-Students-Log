@@ -86,27 +86,24 @@ def adicionar_lembrete(id):
     df_anotacoes.loc[df_anotacoes['ID'] == id, 'Lembrete'] = lembrete
     df_anotacoes.to_csv(caminho_anotacoes, index=False)
 
-def visualizar_material(tipo):      # Opcao 1 do menu materiais
+def visualizar_material(tipo):  # Opcao 1 do menu materiais
     if tipo == 1:
-        caminho_relativo = ARQUIVOS['aulas']
+        caminho_relativo = utils.writable_path("data", "aulas.csv")
     elif tipo == 2:
-        caminho_relativo = ARQUIVOS['textos']
+        caminho_relativo = utils.writable_path("data", "textos.csv")
     else:
-        caminho_relativo = ARQUIVOS['exercicios']
+        caminho_relativo = utils.writable_path("data", "exercicios.csv")
 
-    with open(caminho_relativo, newline='') as arquivocsv:
+    df = pd.read_csv(caminho_relativo)
 
-        leitor_csv = csv.DictReader(arquivocsv)
+    headers = ['id', 'name']
+    table = []
 
-        headers = ['id','name']
-        table = []
+    for _, row in df.iterrows():
+        id_encurtado = row['id'][:4] + "..."
+        table.append([id_encurtado, row['name']])
 
-        for linha in leitor_csv:
-            id_encurtado = linha['id'][:4] + "..."
-
-            table.append([id_encurtado, linha['name']])
-
-        print(tabulate(table, headers=headers, tablefmt="fancy_grid"))
+    print(tabulate(table, headers=headers, tablefmt="fancy_grid"))
 
 def visualizar_historico(id_param, tipo):   # Opcao 2 do menu materiais
     if tipo == 1:
